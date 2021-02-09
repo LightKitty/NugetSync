@@ -149,8 +149,6 @@
             // checkBoxUpdate
             // 
             this.checkBoxUpdate.AutoSize = true;
-            this.checkBoxUpdate.Checked = true;
-            this.checkBoxUpdate.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxUpdate.Location = new System.Drawing.Point(18, 424);
             this.checkBoxUpdate.Name = "checkBoxUpdate";
             this.checkBoxUpdate.Size = new System.Drawing.Size(51, 21);
