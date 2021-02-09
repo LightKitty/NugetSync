@@ -18,41 +18,55 @@ namespace NugetSync
     {
         const string packagesConfig = "packages.config";
         const string csprojExtension = ".csproj";
-        string lastFolderBrowserdir = string.Empty;
+        string lastFolderBrowserdir = string.Empty; //记忆上次打开文件
 
         public MainForm()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 打开文件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnOpen1_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.RestoreDirectory = true;
-            ofd.Filter = "C#项目文件|*.csproj|程序包文件|packages.config|所有文件|*.*";
-            ofd.Multiselect = true;
-            if(ofd.ShowDialog()==DialogResult.OK)
+            using (OpenFileDialog ofd = new OpenFileDialog())
             {
-                string[] paths = ofd.FileNames;
-                foreach(string path in paths)
+                ofd.RestoreDirectory = true;
+                ofd.Filter = "C#项目文件|*.csproj|程序包文件|packages.config|所有文件|*.*";
+                ofd.Multiselect = true;
+                if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    textBox1.AppendText(path + Environment.NewLine);
+                    string[] paths = ofd.FileNames;
+                    foreach (string path in paths)
+                    {
+                        textBox1.AppendText(path + Environment.NewLine);
+                    }
                 }
             }
         }
 
+        /// <summary>
+        /// 打开文件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnOpen2_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.RestoreDirectory = true;
-            ofd.Filter = "C#项目文件|*.csproj|程序包文件|packages.config|所有文件|*.*";
-            ofd.Multiselect = true;
-            if (ofd.ShowDialog() == DialogResult.OK)
+            using (OpenFileDialog ofd = new OpenFileDialog())
             {
-                string[] paths = ofd.FileNames;
-                foreach (string path in paths)
+                ofd.RestoreDirectory = true;
+                ofd.Filter = "C#项目文件|*.csproj|程序包文件|packages.config|所有文件|*.*";
+                ofd.Multiselect = true;
+                if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    textBox2.AppendText(path + Environment.NewLine);
+                    string[] paths = ofd.FileNames;
+                    foreach (string path in paths)
+                    {
+                        textBox2.AppendText(path + Environment.NewLine);
+                    }
                 }
             }
         }
@@ -178,44 +192,58 @@ namespace NugetSync
             xd.Save(path);
         }
 
+        /// <summary>
+        /// 打开目录
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnOpenDir1_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog fbd = new FolderBrowserDialog();
-            if (Directory.Exists(lastFolderBrowserdir)) fbd.SelectedPath = lastFolderBrowserdir;
-            if(fbd.ShowDialog() == DialogResult.OK)
+            using (FolderBrowserDialog fbd = new FolderBrowserDialog())
             {
-                string dir = fbd.SelectedPath;
-                DirectoryInfo root = new DirectoryInfo(dir);
-                FileInfo[] files = root.GetFiles();
-                foreach(var file in files)
+                if (Directory.Exists(lastFolderBrowserdir)) fbd.SelectedPath = lastFolderBrowserdir;
+                if (fbd.ShowDialog() == DialogResult.OK)
                 {
-                    if (file.Name.ToLower() == packagesConfig || Path.GetExtension(file.Name).ToLower() == csprojExtension)
+                    string dir = fbd.SelectedPath;
+                    DirectoryInfo root = new DirectoryInfo(dir);
+                    FileInfo[] files = root.GetFiles();
+                    foreach (var file in files)
                     {
-                        textBox1.AppendText(file.FullName);
+                        if (file.Name.ToLower() == packagesConfig || Path.GetExtension(file.Name).ToLower() == csprojExtension)
+                        {
+                            textBox1.AppendText(file.FullName);
+                        }
                     }
+                    lastFolderBrowserdir = dir;
                 }
-                lastFolderBrowserdir = dir;
             }
         }
 
+        /// <summary>
+        /// 打开目录
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnOpenDir2_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog fbd = new FolderBrowserDialog();
-            if (Directory.Exists(lastFolderBrowserdir)) fbd.SelectedPath = lastFolderBrowserdir;
-            if (fbd.ShowDialog() == DialogResult.OK)
+            using (FolderBrowserDialog fbd = new FolderBrowserDialog())
             {
-                string dir = fbd.SelectedPath;
-                DirectoryInfo root = new DirectoryInfo(dir);
-                FileInfo[] files = root.GetFiles();
-                foreach (var file in files)
+                if (Directory.Exists(lastFolderBrowserdir)) fbd.SelectedPath = lastFolderBrowserdir;
+                if (fbd.ShowDialog() == DialogResult.OK)
                 {
-                    if (file.Name.ToLower() == packagesConfig || Path.GetExtension(file.Name).ToLower() == csprojExtension)
+                    string dir = fbd.SelectedPath;
+                    DirectoryInfo root = new DirectoryInfo(dir);
+                    FileInfo[] files = root.GetFiles();
+                    foreach (var file in files)
                     {
-                        textBox2.AppendText(file.FullName);
+                        if (file.Name.ToLower() == packagesConfig || Path.GetExtension(file.Name).ToLower() == csprojExtension)
+                        {
+                            textBox2.AppendText(file.FullName);
+                        }
                     }
+                    lastFolderBrowserdir = dir;
                 }
-                lastFolderBrowserdir = dir;
-            }
+            }  
         }
 
         /// <summary>
