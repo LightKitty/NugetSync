@@ -97,6 +97,8 @@ namespace NugetSync
             Dictionary<string, XElement> packageDic = ReadPackagesConfig(packagesConfigPaths);
             Dictionary<string, XElement> referenceDic = ReadCsproj(csprojPaths);
 
+            bool isUpdate = checkBoxUpdate.Checked;
+            bool isAdd = checkBoxAdd.Checked;
 
             //更新目标
             foreach (string path2 in paths2)
@@ -109,11 +111,11 @@ namespace NugetSync
                 var fileName = Path.GetFileName(path2);
                 if (fileName.ToLower() == packagesConfig)
                 { //packages.config
-                    RepairPackageConfig(path2, packageDic);
+                    RepairPackageConfig(path2, packageDic, isUpdate, isAdd);
                 }
                 else if (Path.GetExtension(fileName).ToLower() == csprojExtension)
                 { //.csproj
-                    RepairCsprojConfig(path2, referenceDic);
+                    RepairCsprojConfig(path2, referenceDic, isUpdate, isAdd);
                 }
             }
 
@@ -125,7 +127,9 @@ namespace NugetSync
         /// </summary>
         /// <param name="path"></param>
         /// <param name="packageDic"></param>
-        private void RepairPackageConfig(string path, Dictionary<string, XElement> packageDic)
+        /// <param name="isUpdate">是否更新</param>
+        /// <param name="isAdd">是否新增</param>
+        private void RepairPackageConfig(string path, Dictionary<string, XElement> packageDic, bool isUpdate, bool isAdd)
         {
             XDocument xd = XDocument.Load(path);
             var packages = xd.Descendants("packages").FirstOrDefault();
@@ -135,12 +139,12 @@ namespace NugetSync
                 string id = packageList.ElementAt(i).Attribute("id").Value;
                 if (packageDic.TryGetValue(id, out XElement tn))
                 {
-                    packageList.ElementAt(i).ReplaceWith(tn);
+                    if(isUpdate) packageList.ElementAt(i).ReplaceWith(tn); //更新
                     packageDic.Remove(id); //移除掉更新的
                 }
             }
 
-            packages.Add(packageDic.Values); //添加没有的
+            if(isAdd) packages.Add(packageDic.Values); //添加没有的
 
             xd.Save(path);
         }
@@ -150,7 +154,9 @@ namespace NugetSync
         /// </summary>
         /// <param name="path"></param>
         /// <param name="csprojDic"></param>
-        private void RepairCsprojConfig(string path, Dictionary<string, XElement> csprojDic)
+        /// <param name="isUpdate">是否更新</param>
+        /// <param name="isAdd">是否新增</param>
+        private void RepairCsprojConfig(string path, Dictionary<string, XElement> csprojDic, bool isUpdate, bool isAdd)
         {
             XDocument xd = XDocument.Load(path);
             var references = xd.Descendants().Where(x => x.Name.LocalName == "Reference");
@@ -162,12 +168,12 @@ namespace NugetSync
                 string id = include.Split(',').First().Trim();
                 if (csprojDic.TryGetValue(id, out XElement tn))
                 {
-                    references.ElementAt(i).ReplaceWith(tn);
+                    if(isUpdate) references.ElementAt(i).ReplaceWith(tn);
                     csprojDic.Remove(id); //移除掉更新的
                 }
             }
 
-            itemGroup.Add(csprojDic.Values); //添加没有的
+            if(isAdd) itemGroup.Add(csprojDic.Values); //添加没有的
 
             xd.Save(path);
         }

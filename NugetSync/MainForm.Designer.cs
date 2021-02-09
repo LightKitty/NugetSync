@@ -37,6 +37,8 @@
             this.btnOpenDir2 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBoxAdd = new System.Windows.Forms.CheckBox();
+            this.checkBoxUpdate = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -79,7 +81,7 @@
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(12, 486);
+            this.btnOk.Location = new System.Drawing.Point(403, 486);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 25);
             this.btnOk.TabIndex = 4;
@@ -131,11 +133,37 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "目标";
             // 
+            // checkBoxAdd
+            // 
+            this.checkBoxAdd.AutoSize = true;
+            this.checkBoxAdd.Checked = true;
+            this.checkBoxAdd.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxAdd.Location = new System.Drawing.Point(75, 486);
+            this.checkBoxAdd.Name = "checkBoxAdd";
+            this.checkBoxAdd.Size = new System.Drawing.Size(51, 21);
+            this.checkBoxAdd.TabIndex = 9;
+            this.checkBoxAdd.Text = "新增";
+            this.checkBoxAdd.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxUpdate
+            // 
+            this.checkBoxUpdate.AutoSize = true;
+            this.checkBoxUpdate.Checked = true;
+            this.checkBoxUpdate.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxUpdate.Location = new System.Drawing.Point(18, 486);
+            this.checkBoxUpdate.Name = "checkBoxUpdate";
+            this.checkBoxUpdate.Size = new System.Drawing.Size(51, 21);
+            this.checkBoxUpdate.TabIndex = 10;
+            this.checkBoxUpdate.Text = "更新";
+            this.checkBoxUpdate.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(499, 521);
+            this.Controls.Add(this.checkBoxUpdate);
+            this.Controls.Add(this.checkBoxAdd);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnOk);
@@ -150,6 +178,7 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -164,6 +193,8 @@
         private System.Windows.Forms.Button btnOpenDir2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.CheckBox checkBoxAdd;
+        private System.Windows.Forms.CheckBox checkBoxUpdate;
     }
 }
 
