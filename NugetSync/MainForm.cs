@@ -16,6 +16,7 @@ namespace NugetSync
 {
     public partial class MainForm : Form
     {
+        #region private fileds
         const string packagesConfig = "packages.config";
         const string csprojExtension = ".csproj";
         string lastFolderBrowserdir = string.Empty; //记忆上次打开文件
@@ -28,6 +29,7 @@ namespace NugetSync
             "勾选新增按钮，来源中存在而目标中不存在的包，会添加" + Environment.NewLine +
             "作者联系方式：LightKitty@126.com"
             ;
+        #endregion
 
         public MainForm()
         {
