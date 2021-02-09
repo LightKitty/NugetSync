@@ -344,6 +344,11 @@ namespace NugetSync
             return nugetDic;
         }
 
+        /// <summary>
+        /// 帮助按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnHelp_Click(object sender, EventArgs e)
         {
             MessageBox.Show(helpString, "帮助");
