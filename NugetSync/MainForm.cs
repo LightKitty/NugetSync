@@ -83,6 +83,11 @@ namespace NugetSync
             }
         }
 
+        /// <summary>
+        /// 确定按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnOk_Click(object sender, EventArgs e)
         {
             try
