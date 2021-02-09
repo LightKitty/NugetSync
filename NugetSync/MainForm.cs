@@ -22,8 +22,9 @@ namespace NugetSync
         string lastFolderBrowserdir = string.Empty; //记忆上次打开文件
 
         static readonly string helpString =
-            "来源选择同步来源文件" + Environment.NewLine +
-            "目标选择同步目标文件" + Environment.NewLine +
+            "Nuget同步通常需要同步“packages.config”和“.csproj”两个文件" + Environment.NewLine +
+            "来源选择同步来源文件，“packages.config”和“.csproj”全路径" + Environment.NewLine +
+            "目标选择同步目标文件，“packages.config”和“.csproj”全路径" + Environment.NewLine +
             "支持文本框内直接填写文件路径，一行代表一个路径" + Environment.NewLine +
             "勾选更新按钮，遇到相同的包，会更新" + Environment.NewLine +
             "勾选新增按钮，来源中存在而目标中不存在的包，会添加" + Environment.NewLine +
@@ -84,67 +85,74 @@ namespace NugetSync
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            string[] paths1 = Regex.Split(textBox1.Text.TrimEnd(Environment.NewLine.ToArray()), Environment.NewLine);
-            foreach (string path1 in paths1)
+            try
             {
-                if (!File.Exists(path1))
+                string[] paths1 = Regex.Split(textBox1.Text.TrimEnd(Environment.NewLine.ToArray()), Environment.NewLine);
+                foreach (string path1 in paths1)
                 {
-                    MessageBox.Show($"源文件 {path1} 不存在！");
-                    return;
+                    if (!File.Exists(path1))
+                    {
+                        MessageBox.Show($"来源文件 {path1} 不存在！");
+                        return;
+                    }
                 }
-            }
 
-            string[] paths2 = Regex.Split(textBox2.Text.TrimEnd(Environment.NewLine.ToArray()), Environment.NewLine);
-            foreach (string path2 in paths2)
+                string[] paths2 = Regex.Split(textBox2.Text.TrimEnd(Environment.NewLine.ToArray()), Environment.NewLine);
+                foreach (string path2 in paths2)
+                {
+                    if (!File.Exists(path2))
+                    {
+                        MessageBox.Show($"目标文件 {path2} 不存在！");
+                        return;
+                    }
+                }
+
+                var packagesConfigPaths = new List<string>();
+                var csprojPaths = new List<string>();
+                foreach (var path in paths1)
+                {
+                    var fileName = Path.GetFileName(path);
+                    if (fileName.ToLower() == packagesConfig)
+                    {
+                        packagesConfigPaths.Add(path);
+                    }
+                    else if (Path.GetExtension(fileName).ToLower() == csprojExtension)
+                    {
+                        csprojPaths.Add(path);
+                    }
+                }
+
+                Dictionary<string, XElement> packageDic = ReadPackagesConfig(packagesConfigPaths);
+                Dictionary<string, XElement> referenceDic = ReadCsproj(csprojPaths);
+
+                bool isUpdate = checkBoxUpdate.Checked;
+                bool isAdd = checkBoxAdd.Checked;
+
+                //更新目标
+                foreach (string path2 in paths2)
+                {
+                    if (!File.Exists(path2))
+                    {
+                        continue;
+                    }
+
+                    var fileName = Path.GetFileName(path2);
+                    if (fileName.ToLower() == packagesConfig)
+                    { //packages.config
+                        RepairPackageConfig(path2, packageDic, isUpdate, isAdd);
+                    }
+                    else if (Path.GetExtension(fileName).ToLower() == csprojExtension)
+                    { //.csproj
+                        RepairCsprojConfig(path2, referenceDic, isUpdate, isAdd);
+                    }
+                }
+
+                MessageBox.Show("同步成功！", "提示");
+            }
+            catch(Exception ex)
             {
-                if (!File.Exists(path2))
-                {
-                    MessageBox.Show($"目标文件 {path2} 不存在！");
-                    return;
-                }
+                MessageBox.Show(ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            var packagesConfigPaths = new List<string>();
-            var csprojPaths = new List<string>();
-            foreach (var path in paths1)
-            {
-                var fileName = Path.GetFileName(path);
-                if(fileName.ToLower() == packagesConfig)
-                {
-                    packagesConfigPaths.Add(path);
-                }
-                else if(Path.GetExtension(fileName).ToLower() == csprojExtension)
-                {
-                    csprojPaths.Add(path);
-                }
-            }
-
-            Dictionary<string, XElement> packageDic = ReadPackagesConfig(packagesConfigPaths);
-            Dictionary<string, XElement> referenceDic = ReadCsproj(csprojPaths);
-
-            bool isUpdate = checkBoxUpdate.Checked;
-            bool isAdd = checkBoxAdd.Checked;
-
-            //更新目标
-            foreach (string path2 in paths2)
-            {
-                if (!File.Exists(path2))
-                {
-                    continue;
-                }
-
-                var fileName = Path.GetFileName(path2);
-                if (fileName.ToLower() == packagesConfig)
-                { //packages.config
-                    RepairPackageConfig(path2, packageDic, isUpdate, isAdd);
-                }
-                else if (Path.GetExtension(fileName).ToLower() == csprojExtension)
-                { //.csproj
-                    RepairCsprojConfig(path2, referenceDic, isUpdate, isAdd);
-                }
-            }
-
-            MessageBox.Show("同步成功！");
         }
 
         /// <summary>
