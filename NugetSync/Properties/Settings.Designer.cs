@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NugetRepair.Properties
+namespace NugetSync.Properties
 {
 
 

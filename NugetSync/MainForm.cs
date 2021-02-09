@@ -12,7 +12,7 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
 
-namespace NugetRepair
+namespace NugetSync
 {
     public partial class MainForm : Form
     {

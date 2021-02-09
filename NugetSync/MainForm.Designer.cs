@@ -1,4 +1,4 @@
-﻿namespace NugetRepair
+﻿namespace NugetSync
 {
     partial class MainForm
     {
