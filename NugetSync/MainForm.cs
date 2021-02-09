@@ -90,6 +90,7 @@ namespace NugetSync
                 string[] paths1 = Regex.Split(textBox1.Text.TrimEnd(Environment.NewLine.ToArray()), Environment.NewLine);
                 foreach (string path1 in paths1)
                 {
+                    if (string.IsNullOrWhiteSpace(path1)) continue;
                     if (!File.Exists(path1))
                     {
                         MessageBox.Show($"来源文件 {path1} 不存在！");
@@ -100,6 +101,7 @@ namespace NugetSync
                 string[] paths2 = Regex.Split(textBox2.Text.TrimEnd(Environment.NewLine.ToArray()), Environment.NewLine);
                 foreach (string path2 in paths2)
                 {
+                    if (string.IsNullOrWhiteSpace(path2)) continue;
                     if (!File.Exists(path2))
                     {
                         MessageBox.Show($"目标文件 {path2} 不存在！");
@@ -127,31 +129,49 @@ namespace NugetSync
 
                 bool isUpdate = checkBoxUpdate.Checked;
                 bool isAdd = checkBoxAdd.Checked;
-
-                //更新目标
-                foreach (string path2 in paths2)
+                if(!isUpdate&&!isAdd)
                 {
-                    if (!File.Exists(path2))
-                    {
-                        continue;
-                    }
-
-                    var fileName = Path.GetFileName(path2);
-                    if (fileName.ToLower() == packagesConfig)
-                    { //packages.config
-                        RepairPackageConfig(path2, packageDic, isUpdate, isAdd);
-                    }
-                    else if (Path.GetExtension(fileName).ToLower() == csprojExtension)
-                    { //.csproj
-                        RepairCsprojConfig(path2, referenceDic, isUpdate, isAdd);
-                    }
+                    MessageBox.Show("请勾选“更新”、“新增”复选框哦！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
                 }
+
+                //更新操作
+                SyncOperate(paths2, packageDic, referenceDic, isUpdate, isAdd);
 
                 MessageBox.Show("同步成功！", "提示");
             }
             catch(Exception ex)
             {
                 MessageBox.Show(ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// 同步操作
+        /// </summary>
+        /// <param name="paths"></param>
+        /// <param name="packageDic"></param>
+        /// <param name="referenceDic"></param>
+        /// <param name="isUpdate"></param>
+        /// <param name="isAdd"></param>
+        private void SyncOperate(string[] paths, Dictionary<string, XElement> packageDic, Dictionary<string, XElement> referenceDic, bool isUpdate, bool isAdd)
+        {
+            foreach (string path in paths)
+            {
+                if (!File.Exists(path))
+                {
+                    continue;
+                }
+
+                var fileName = Path.GetFileName(path);
+                if (fileName.ToLower() == packagesConfig)
+                { //packages.config
+                    RepairPackageConfig(path, packageDic, isUpdate, isAdd);
+                }
+                else if (Path.GetExtension(fileName).ToLower() == csprojExtension)
+                { //.csproj
+                    RepairCsprojConfig(path, referenceDic, isUpdate, isAdd);
+                }
             }
         }
 
