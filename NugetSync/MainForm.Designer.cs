@@ -49,7 +49,8 @@
             this.textBox1.Location = new System.Drawing.Point(6, 53);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(548, 165);
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox1.Size = new System.Drawing.Size(548, 141);
             this.textBox1.TabIndex = 0;
             // 
             // textBox2
@@ -57,7 +58,8 @@
             this.textBox2.Location = new System.Drawing.Point(6, 53);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(548, 175);
+            this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox2.Size = new System.Drawing.Size(548, 141);
             this.textBox2.TabIndex = 1;
             // 
             // btnOpen1
@@ -82,7 +84,7 @@
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(491, 486);
+            this.btnOk.Location = new System.Drawing.Point(491, 424);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 25);
             this.btnOk.TabIndex = 4;
@@ -117,7 +119,7 @@
             this.groupBox1.Controls.Add(this.btnOpen1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(560, 231);
+            this.groupBox1.Size = new System.Drawing.Size(560, 200);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "来源";
@@ -127,9 +129,9 @@
             this.groupBox2.Controls.Add(this.btnOpen2);
             this.groupBox2.Controls.Add(this.textBox2);
             this.groupBox2.Controls.Add(this.btnOpenDir2);
-            this.groupBox2.Location = new System.Drawing.Point(12, 249);
+            this.groupBox2.Location = new System.Drawing.Point(12, 218);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(560, 231);
+            this.groupBox2.Size = new System.Drawing.Size(560, 200);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "目标";
@@ -137,7 +139,7 @@
             // checkBoxAdd
             // 
             this.checkBoxAdd.AutoSize = true;
-            this.checkBoxAdd.Location = new System.Drawing.Point(75, 486);
+            this.checkBoxAdd.Location = new System.Drawing.Point(75, 424);
             this.checkBoxAdd.Name = "checkBoxAdd";
             this.checkBoxAdd.Size = new System.Drawing.Size(51, 21);
             this.checkBoxAdd.TabIndex = 9;
@@ -149,7 +151,7 @@
             this.checkBoxUpdate.AutoSize = true;
             this.checkBoxUpdate.Checked = true;
             this.checkBoxUpdate.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxUpdate.Location = new System.Drawing.Point(18, 486);
+            this.checkBoxUpdate.Location = new System.Drawing.Point(18, 424);
             this.checkBoxUpdate.Name = "checkBoxUpdate";
             this.checkBoxUpdate.Size = new System.Drawing.Size(51, 21);
             this.checkBoxUpdate.TabIndex = 10;
@@ -158,7 +160,7 @@
             // 
             // btnHelp
             // 
-            this.btnHelp.Location = new System.Drawing.Point(410, 486);
+            this.btnHelp.Location = new System.Drawing.Point(410, 424);
             this.btnHelp.Name = "btnHelp";
             this.btnHelp.Size = new System.Drawing.Size(75, 25);
             this.btnHelp.TabIndex = 11;
@@ -170,7 +172,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 521);
+            this.ClientSize = new System.Drawing.Size(584, 456);
             this.Controls.Add(this.btnHelp);
             this.Controls.Add(this.checkBoxUpdate);
             this.Controls.Add(this.checkBoxAdd);
