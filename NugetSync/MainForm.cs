@@ -20,6 +20,15 @@ namespace NugetSync
         const string csprojExtension = ".csproj";
         string lastFolderBrowserdir = string.Empty; //记忆上次打开文件
 
+        static readonly string helpString =
+            "来源选择同步来源文件" + Environment.NewLine +
+            "目标选择同步目标文件" + Environment.NewLine +
+            "支持文本框内直接填写文件路径，一行代表一个路径" + Environment.NewLine +
+            "勾选更新按钮，遇到相同的包，会更新" + Environment.NewLine +
+            "勾选新增按钮，来源中存在而目标中不存在的包，会添加" + Environment.NewLine +
+            "作者联系方式：LightKitty@126.com"
+            ;
+
         public MainForm()
         {
             InitializeComponent();
@@ -133,7 +142,7 @@ namespace NugetSync
                 }
             }
 
-            MessageBox.Show("修复成功！");
+            MessageBox.Show("同步成功！");
         }
 
         /// <summary>
@@ -298,6 +307,11 @@ namespace NugetSync
                 }
             }
             return nugetDic;
+        }
+
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(helpString, "帮助");
         }
     }
 }

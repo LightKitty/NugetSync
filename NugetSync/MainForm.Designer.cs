@@ -39,6 +39,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.checkBoxAdd = new System.Windows.Forms.CheckBox();
             this.checkBoxUpdate = new System.Windows.Forms.CheckBox();
+            this.btnHelp = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -48,7 +49,7 @@
             this.textBox1.Location = new System.Drawing.Point(6, 53);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(460, 165);
+            this.textBox1.Size = new System.Drawing.Size(548, 165);
             this.textBox1.TabIndex = 0;
             // 
             // textBox2
@@ -56,7 +57,7 @@
             this.textBox2.Location = new System.Drawing.Point(6, 53);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(460, 175);
+            this.textBox2.Size = new System.Drawing.Size(548, 175);
             this.textBox2.TabIndex = 1;
             // 
             // btnOpen1
@@ -81,7 +82,7 @@
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(403, 486);
+            this.btnOk.Location = new System.Drawing.Point(491, 486);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 25);
             this.btnOk.TabIndex = 4;
@@ -116,7 +117,7 @@
             this.groupBox1.Controls.Add(this.btnOpen1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(474, 231);
+            this.groupBox1.Size = new System.Drawing.Size(560, 231);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "来源";
@@ -128,7 +129,7 @@
             this.groupBox2.Controls.Add(this.btnOpenDir2);
             this.groupBox2.Location = new System.Drawing.Point(12, 249);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(474, 231);
+            this.groupBox2.Size = new System.Drawing.Size(560, 231);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "目标";
@@ -136,8 +137,6 @@
             // checkBoxAdd
             // 
             this.checkBoxAdd.AutoSize = true;
-            this.checkBoxAdd.Checked = true;
-            this.checkBoxAdd.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxAdd.Location = new System.Drawing.Point(75, 486);
             this.checkBoxAdd.Name = "checkBoxAdd";
             this.checkBoxAdd.Size = new System.Drawing.Size(51, 21);
@@ -157,11 +156,22 @@
             this.checkBoxUpdate.Text = "更新";
             this.checkBoxUpdate.UseVisualStyleBackColor = true;
             // 
+            // btnHelp
+            // 
+            this.btnHelp.Location = new System.Drawing.Point(410, 486);
+            this.btnHelp.Name = "btnHelp";
+            this.btnHelp.Size = new System.Drawing.Size(75, 25);
+            this.btnHelp.TabIndex = 11;
+            this.btnHelp.Text = "帮助";
+            this.btnHelp.UseVisualStyleBackColor = true;
+            this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(499, 521);
+            this.ClientSize = new System.Drawing.Size(584, 521);
+            this.Controls.Add(this.btnHelp);
             this.Controls.Add(this.checkBoxUpdate);
             this.Controls.Add(this.checkBoxAdd);
             this.Controls.Add(this.groupBox2);
@@ -172,6 +182,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Nuget包修复工具";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -195,6 +206,7 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.CheckBox checkBoxAdd;
         private System.Windows.Forms.CheckBox checkBoxUpdate;
+        private System.Windows.Forms.Button btnHelp;
     }
 }
 
