@@ -255,7 +255,7 @@ namespace NugetSync
                     {
                         if (file.Name.ToLower() == packagesConfig || Path.GetExtension(file.Name).ToLower() == csprojExtension)
                         {
-                            textBox1.AppendText(file.FullName);
+                            textBox1.AppendText(file.FullName + Environment.NewLine);
                         }
                     }
                     lastFolderBrowserdir = dir;
@@ -282,7 +282,7 @@ namespace NugetSync
                     {
                         if (file.Name.ToLower() == packagesConfig || Path.GetExtension(file.Name).ToLower() == csprojExtension)
                         {
-                            textBox2.AppendText(file.FullName);
+                            textBox2.AppendText(file.FullName + Environment.NewLine);
                         }
                     }
                     lastFolderBrowserdir = dir;
